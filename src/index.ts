@@ -1,16 +1,22 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-// import { apiRouter } from './routes/apiRouter';
+import sequelize from './config/database';
+import router from './routes/route';
+
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 
-// Mount API router
-// app.use('/api', apiRouter);
+app.use('/', router);
 
 app.listen(3000, () => {
+  sequelize.sync().then(() => {
+    console.log('DB connected')
+  }).catch((error) => {
+    console.error('Error while connecting to database', error);
+  });
   console.log('Server listening on port 3000');
 });
