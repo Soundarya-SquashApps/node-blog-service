@@ -1,9 +1,9 @@
 import Article from '../models/article';
 
 export const createArticle = async (req: any, res: any) => {
-    const { title, nickname, creationDate } = req.body;
+    const { title, nickname, content, creationDate } = req.body;
     try {
-        const article = await Article.create({ title, nickname, creationDate });
+        const article = await Article.create({ title, nickname, content, creationDate });
         res.json(article);
     } catch (err) {
         console.error('Error while creating an article ', err);
